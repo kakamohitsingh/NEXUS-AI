@@ -945,6 +945,10 @@ document.addEventListener('DOMContentLoaded', () => {
   renderHeroChart();
   renderPortfolio();
 
+  // Wire the API Docs link dynamically to the correct backend URL
+  const apiDocsLink = document.getElementById('footer-api-docs-link');
+  if (apiDocsLink) apiDocsLink.href = `${CFG.apiBase}/docs`;
+
   // Request push notification permission after short delay
   setTimeout(() => requestNotifPerm(), 3000);
 
@@ -960,3 +964,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
   console.info('[Nexus AI v3.0] Initialised | WS:', CFG.wsUrl);
 });
+

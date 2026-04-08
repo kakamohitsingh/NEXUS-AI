@@ -9,8 +9,7 @@ from typing import Any, Optional
 
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse
-from fastapi.staticfiles import StaticFiles
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
 from ai_service import ASSET_METADATA, analyze_crypto_data, train_models
@@ -242,12 +241,9 @@ app = FastAPI(title="Nexus AI v3.0", version="3.0.0", lifespan=lifespan)
 app.add_middleware(CORSMiddleware, allow_origins=ALLOWED_ORIGINS,
                    allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
 
-_FRONTEND = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-app.mount("/static", StaticFiles(directory=_FRONTEND), name="static")
-
 @app.get("/", include_in_schema=False)
 async def root():
-    return FileResponse(os.path.join(_FRONTEND, "index.html"))
+    return JSONResponse({"name": "Nexus AI v3.0", "status": "online", "docs": "/docs"})
 
 # ─── REST ─────────────────────────────────────────────────────
 @app.get("/api/health")
