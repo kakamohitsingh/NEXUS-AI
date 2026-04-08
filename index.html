@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Nexus AI uses deep neural networks to forecast Bitcoin and Altcoin trends with 89% historical accuracy. Get next-generation crypto price predictions powered by AI." />
+  <meta name="keywords" content="crypto predictions, AI crypto, Bitcoin forecast, altcoin predictions, neural network trading" />
+  <meta property="og:title" content="Nexus AI — Crypto Price Predictions" />
+  <meta property="og:description" content="Next-Generation AI Crypto Predictions. 89% historical accuracy." />
+  <meta property="og:type" content="website" />
+  <title>Nexus AI — Crypto Price Predictions</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+  <!-- ethers.js v6 for MetaMask wallet connect -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.15.0/ethers.umd.min.js"></script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ===================== HEADER / NAV ===================== -->
+  <header class="header" id="header">
+    <nav class="nav container" aria-label="Main navigation">
+      <a href="#" class="nav__logo" aria-label="Nexus AI Home">
+        <span class="logo__icon"><i class="fa-solid fa-hexagon-nodes"></i></span>
+        <span class="logo__text">Nexus<span class="logo__accent">AI</span></span>
+      </a>
+
+      <ul class="nav__links" id="nav-links" role="list">
+        <li><a href="#predictions" class="nav__link">Live Predictions</a></li>
+        <li><a href="#portfolio" class="nav__link">Portfolio</a></li>
+        <li><a href="#how-it-works" class="nav__link">How it Works</a></li>
+        <li><a href="#pricing" class="nav__link">Pricing</a></li>
+      </ul>
+
+      <div class="nav__actions">
+        <button class="btn btn--glow" id="connect-wallet-btn" aria-label="Connect your wallet">
+          <i class="fa-solid fa-wallet"></i>
+          <span>Connect Wallet</span>
+        </button>
+        <button class="nav__hamburger" id="hamburger-btn" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ===================== HERO SECTION ===================== -->
+    <section class="hero" id="home" aria-labelledby="hero-headline">
+      <!-- Animated BG grid -->
+      <div class="hero__grid-bg" aria-hidden="true"></div>
+      <!-- Orb blobs -->
+      <div class="hero__orb hero__orb--1" aria-hidden="true"></div>
+      <div class="hero__orb hero__orb--2" aria-hidden="true"></div>
+
+      <div class="container hero__inner">
+        <div class="hero__content fade-in">
+          <div class="hero__badge" aria-label="Powered by AI">
+            <i class="fa-solid fa-microchip"></i>
+            <span>Powered by Deep Neural Networks</span>
+          </div>
+
+          <h1 class="hero__headline" id="hero-headline">
+            Next-Generation<br />
+            <span class="text--gradient">AI Crypto</span><br />
+            Predictions.
+          </h1>
+
+          <p class="hero__sub">
+            Leverage deep neural networks to forecast Bitcoin and Altcoin trends with
+            <strong>89% historical accuracy</strong>. Real-time signals. Zero noise.
+          </p>
+
+          <div class="hero__cta">
+            <a href="#predictions" class="btn btn--primary btn--lg" id="view-dashboard-btn">
+              <i class="fa-solid fa-chart-line"></i>
+              View Live Dashboard
+            </a>
+            <a href="#how-it-works" class="btn btn--ghost btn--lg" id="whitepaper-btn">
+              <i class="fa-solid fa-file-lines"></i>
+              Read the Whitepaper
+            </a>
+          </div>
+
+          <div class="hero__stats" role="list" aria-label="Key statistics">
+            <div class="hero__stat" role="listitem">
+              <span class="stat__value" id="stat-accuracy">89%</span>
+              <span class="stat__label">Historical Accuracy</span>
+            </div>
+            <div class="hero__stat-divider" aria-hidden="true"></div>
+            <div class="hero__stat" role="listitem">
+              <span class="stat__value">$2.4B+</span>
+              <span class="stat__label">Volume Tracked</span>
+            </div>
+            <div class="hero__stat-divider" aria-hidden="true"></div>
+            <div class="hero__stat" role="listitem">
+              <span class="stat__value">12K+</span>
+              <span class="stat__label">Active Users</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero__visual fade-in fade-in--delay" aria-label="Bitcoin 7-day AI prediction chart">
+          <div class="chart-card">
+            <div class="chart-card__header">
+              <div class="chart-card__title">
+                <span class="asset-dot asset-dot--btc" aria-hidden="true"></span>
+                BTC/USD — 7-Day AI Forecast
+              </div>
+              <div class="chart-card__badge badge--live">
+                <span class="pulse-dot" aria-hidden="true"></span> LIVE
+              </div>
+            </div>
+            <div class="chart-card__body">
+              <canvas id="hero-chart" aria-label="Bitcoin 7-day price prediction chart" role="img"></canvas>
+            </div>
+            <div class="chart-card__footer">
+              <span class="chart-confidence">
+                <i class="fa-solid fa-brain"></i>
+                AI Confidence: <strong>91%</strong>
+              </span>
+              <span class="chart-trend trend--up">
+                <i class="fa-solid fa-arrow-trend-up"></i> +4.2% predicted
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== LIVE PREDICTION DASHBOARD ===================== -->
+    <section class="dashboard section" id="predictions" aria-labelledby="dashboard-title">
+      <div class="container">
+        <div class="section__header">
+          <div class="section__badge">
+            <i class="fa-solid fa-signal"></i> Real-Time Engine
+          </div>
+          <h2 class="section__title" id="dashboard-title">
+            Live AI <span class="text--gradient">Prediction</span> Dashboard
+          </h2>
+          <p class="section__sub">
+            Our neural network continuously processes millions of data points to deliver precision forecasts updated every 30 seconds.
+          </p>
+        </div>
+
+        <!-- Dashboard controls -->
+        <div class="dashboard__controls" role="group" aria-label="Dashboard filter controls">
+          <button class="filter-btn filter-btn--active" data-filter="all" id="filter-all">All Assets</button>
+          <button class="filter-btn" data-filter="bullish" id="filter-bullish">
+            <i class="fa-solid fa-arrow-up"></i> Bullish
+          </button>
+          <button class="filter-btn" data-filter="bearish" id="filter-bearish">
+            <i class="fa-solid fa-arrow-down"></i> Bearish
+          </button>
+          <button class="filter-btn filter-btn--watchlist" data-filter="watchlist" id="filter-watchlist">
+            <i class="fa-solid fa-star"></i> Watchlist
+          </button>
+          <div class="dashboard__update-timer" aria-live="polite" aria-label="Next data update">
+            <!-- WebSocket status badge -->
+            <span id="ws-status" class="ws-connecting" role="status" aria-live="polite">
+              <span class="ws-dot" aria-hidden="true"></span>
+              <span id="ws-status-text">Connecting…</span>
+            </span>
+            <i class="fa-solid fa-rotate" id="refresh-icon"></i>
+            <span>Next in <strong id="update-countdown">10</strong>s</span>
+          </div>
+        </div>
+
+        <!-- Prediction Cards Grid -->
+        <div class="predictions-grid" id="predictions-grid" role="region" aria-label="Crypto price predictions">
+          <!-- Skeleton loaders shown initially -->
+          <div class="prediction-card skeleton" aria-hidden="true"></div>
+          <div class="prediction-card skeleton" aria-hidden="true"></div>
+          <div class="prediction-card skeleton" aria-hidden="true"></div>
+          <div class="prediction-card skeleton" aria-hidden="true"></div>
+        </div>
+
+        <!-- Loading state -->
+        <div class="dashboard__loading" id="dashboard-loading" aria-live="polite" aria-label="Loading predictions">
+          <div class="spinner" role="status">
+            <span class="sr-only">Loading predictions…</span>
+          </div>
+          <p>Fetching AI predictions…</p>
+        </div>
+
+        <!-- Error state -->
+        <div class="dashboard__error hidden" id="dashboard-error" role="alert">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <p>Failed to load predictions. <button class="link-btn" id="retry-btn">Retry</button></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== PORTFOLIO TRACKER ===================== -->
+    <section class="portfolio section" id="portfolio" aria-labelledby="portfolio-title">
+      <div class="container">
+        <div class="section__header">
+          <div class="section__badge"><i class="fa-solid fa-briefcase"></i> Portfolio Tracker</div>
+          <h2 class="section__title" id="portfolio-title">Your <span class="text--gradient">Portfolio</span></h2>
+          <p class="section__sub">Track your crypto holdings with live P&amp;L powered by real-time WebSocket prices.</p>
+        </div>
+        <!-- Summary stats -->
+        <div class="portfolio__summary" id="portfolio-summary">
+          <div class="portfolio__stat">
+            <div class="portfolio__stat-label">Total Value</div>
+            <div class="portfolio__stat-value" id="portfolio-total-value">$0.00</div>
+          </div>
+          <div class="portfolio__stat">
+            <div class="portfolio__stat-label">Total Invested</div>
+            <div class="portfolio__stat-value" id="portfolio-total-invested">$0.00</div>
+          </div>
+          <div class="portfolio__stat">
+            <div class="portfolio__stat-label">Total P&amp;L</div>
+            <div class="portfolio__stat-value" id="portfolio-total-pnl">$0.00</div>
+          </div>
+        </div>
+        <!-- Holdings table -->
+        <div class="portfolio__table-wrap" id="portfolio-table-wrap">
+          <table class="portfolio__table" id="portfolio-table">
+            <thead><tr>
+              <th>Asset</th><th>Amount</th><th>Avg Buy Price</th>
+              <th>Current Price</th><th>Current Value</th><th>P&amp;L</th><th>P&amp;L %</th><th></th>
+            </tr></thead>
+            <tbody id="portfolio-body"></tbody>
+          </table>
+        </div>
+        <div class="portfolio__empty hidden" id="portfolio-empty">
+          <i class="fa-solid fa-briefcase" aria-hidden="true"></i>
+          <p>No holdings yet. Add your first position below.</p>
+        </div>
+        <!-- Add holding form -->
+        <div class="portfolio__add-wrap">
+          <p class="portfolio__add-title"><i class="fa-solid fa-plus"></i> Add Holding</p>
+          <div class="portfolio__add-form">
+            <div>
+              <label for="add-coin-select">Coin</label>
+              <select id="add-coin-select">
+                <option value="btc">Bitcoin (BTC)</option>
+                <option value="eth">Ethereum (ETH)</option>
+                <option value="sol">Solana (SOL)</option>
+                <option value="bnb">BNB (BNB)</option>
+                <option value="xrp">XRP (XRP)</option>
+                <option value="doge">Dogecoin (DOGE)</option>
+                <option value="ada">Cardano (ADA)</option>
+                <option value="avax">Avalanche (AVAX)</option>
+                <option value="link">Chainlink (LINK)</option>
+                <option value="dot">Polkadot (DOT)</option>
+              </select>
+            </div>
+            <div>
+              <label for="add-amount">Amount</label>
+              <input id="add-amount" type="number" step="any" min="0" placeholder="e.g. 0.5">
+            </div>
+            <div>
+              <label for="add-buy-price">Avg Buy Price (USD)</label>
+              <input id="add-buy-price" type="number" step="any" min="0" placeholder="e.g. 75000">
+            </div>
+            <button class="btn btn--primary" id="add-holding-btn" aria-label="Add holding">
+              <i class="fa-solid fa-plus"></i> Add
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="features section" id="how-it-works" aria-labelledby="features-title">
+      <div class="container">
+        <div class="section__header">
+          <div class="section__badge">
+            <i class="fa-solid fa-code-branch"></i> The Engine
+          </div>
+          <h2 class="section__title" id="features-title">
+            How <span class="text--gradient">Nexus AI</span> Works
+          </h2>
+          <p class="section__sub">
+            Three proprietary systems working in concert to produce predictions no human analyst can match.
+          </p>
+        </div>
+
+        <div class="features__grid" role="list" aria-label="How Nexus AI works">
+          <article class="feature-card fade-in-up" role="listitem">
+            <div class="feature-card__icon" aria-hidden="true">
+              <i class="fa-brands fa-twitter"></i>
+              <div class="feature-card__icon-ring"></div>
+            </div>
+            <div class="feature-card__step">01</div>
+            <h3 class="feature-card__title">Real-Time Sentiment Analysis</h3>
+            <p class="feature-card__desc">
+              Our NLP model scans over 4 million tweets, Reddit posts, and news articles per hour. We quantify market emotion with 23 custom sentiment indicators, catching trend shifts before they hit price charts.
+            </p>
+            <ul class="feature-card__tags" aria-label="Data sources">
+              <li>Twitter / X</li>
+              <li>Reddit</li>
+              <li>Bloomberg</li>
+              <li>CoinDesk</li>
+            </ul>
+          </article>
+
+          <article class="feature-card fade-in-up feature-card--featured" role="listitem">
+            <div class="feature-card__icon" aria-hidden="true">
+              <i class="fa-solid fa-whale"></i>
+              <div class="feature-card__icon-ring"></div>
+            </div>
+            <div class="feature-card__step">02</div>
+            <h3 class="feature-card__title">On-Chain Data Tracking</h3>
+            <p class="feature-card__desc">
+              We monitor whale wallet movements, exchange inflows/outflows, and smart contract activity across 15+ blockchains in real-time. Large transfers that precede major price moves are flagged instantly.
+            </p>
+            <ul class="feature-card__tags" aria-label="Chains tracked">
+              <li>Bitcoin</li>
+              <li>Ethereum</li>
+              <li>Solana</li>
+              <li>+12 chains</li>
+            </ul>
+          </article>
+
+          <article class="feature-card fade-in-up" role="listitem">
+            <div class="feature-card__icon" aria-hidden="true">
+              <i class="fa-solid fa-wave-square"></i>
+              <div class="feature-card__icon-ring"></div>
+            </div>
+            <div class="feature-card__step">03</div>
+            <h3 class="feature-card__title">Algorithmic Pattern Recognition</h3>
+            <p class="feature-card__desc">
+              Our LSTM neural network was trained on 8 years of OHLCV data across 200+ assets. It identifies 47 proprietary chart patterns with a proven edge, including fractal repetitions invisible to human traders.
+            </p>
+            <ul class="feature-card__tags" aria-label="Models used">
+              <li>LSTM</li>
+              <li>ARIMA</li>
+              <li>XGBoost</li>
+              <li>Transformer</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== PRICING ===================== -->
+    <section class="pricing section" id="pricing" aria-labelledby="pricing-title">
+      <div class="container">
+        <div class="section__header">
+          <div class="section__badge">
+            <i class="fa-solid fa-tag"></i> Simple Pricing
+          </div>
+          <h2 class="section__title" id="pricing-title">
+            Choose Your <span class="text--gradient">Edge</span>
+          </h2>
+          <p class="section__sub">
+            Start free. Scale when you're ready. No hidden fees. Cancel anytime.
+          </p>
+        </div>
+
+        <div class="pricing__grid" role="list" aria-label="Pricing plans">
+          <!-- Free -->
+          <article class="pricing-card" role="listitem">
+            <div class="pricing-card__header">
+              <span class="pricing-card__tier">Explorer</span>
+              <div class="pricing-card__price">
+                <span class="price__amount">$0</span>
+                <span class="price__period">/month</span>
+              </div>
+              <p class="pricing-card__tagline">Perfect for getting started</p>
+            </div>
+            <ul class="pricing-card__features" aria-label="Explorer plan features">
+              <li><i class="fa-solid fa-check" aria-hidden="true"></i> 3 crypto predictions/day</li>
+              <li><i class="fa-solid fa-check" aria-hidden="true"></i> 24h forecast window</li>
+              <li><i class="fa-solid fa-check" aria-hidden="true"></i> Basic sentiment score</li>
+              <li class="disabled"><i class="fa-solid fa-xmark" aria-hidden="true"></i> On-chain tracking</li>
+              <li class="disabled"><i class="fa-solid fa-xmark" aria-hidden="true"></i> Portfolio alerts</li>
+            </ul>
+            <button class="btn btn--ghost btn--full" id="plan-free-btn" aria-label="Sign up for Explorer plan">Get Started Free</button>
+          </article>
+
+          <!-- Pro (Featured) -->
+          <article class="pricing-card pricing-card--featured" role="listitem" aria-label="Most popular plan">
+            <div class="pricing-card__popular">Most Popular</div>
+            <div class="pricing-card__header">
+              <span class="pricing-card__tier">Analyst</span>
+              <div class="pricing-card__price">
+                <span class="price__amount">$29</span>
+                <span class="price__period">/month</span>
+              </div>
+              <p class="pricing-card__tagline">For serious traders</p>
+            </div>
+            <ul class="pricing-card__features" aria-label="Analyst plan features">
+              <li><i class="fa-solid fa-check" aria-hidden="true"></i> Unlimited predictions</li>
+              <li><i class="fa-solid fa-check" aria-hidden="true"></i> 7-day forecast window</li>
+              <li><i class="fa-solid fa-check" aria-hidden="true"></i> Full sentiment analysis</li>
+              <li><i class="fa-solid fa-check" aria-hidden="true"></i> On-chain whale tracking</li>
+              <li><i class="fa-solid fa-check" aria-hidden="true"></i> Portfolio alerts via email</li>
+            </ul>
+            <button class="btn btn--primary btn--full btn--glow" id="plan-pro-btn" aria-label="Start Analyst plan">
+              <i class="fa-solid fa-bolt" aria-hidden="true"></i> Start Free Trial
+            </button>
+          </article>
+
+          <!-- Enterprise -->
+          <article class="pricing-card" role="listitem">
+            <div class="pricing-card__header">
+              <span class="pricing-card__tier">Institutional</span>
+              <div class="pricing-card__price">
+                <span class="price__amount">$299</span>
+                <span class="price__period">/month</span>
+              </div>
+              <p class="pricing-card__tagline">For funds & institutions</p>
+            </div>
+            <ul class="pricing-card__features" aria-label="Institutional plan features">
+              <li><i class="fa-solid fa-check" aria-hidden="true"></i> Everything in Analyst</li>
+              <li><i class="fa-solid fa-check" aria-hidden="true"></i> REST API access</li>
+              <li><i class="fa-solid fa-check" aria-hidden="true"></i> Custom model training</li>
+              <li><i class="fa-solid fa-check" aria-hidden="true"></i> White-label dashboard</li>
+              <li><i class="fa-solid fa-check" aria-hidden="true"></i> Dedicated support</li>
+            </ul>
+            <button class="btn btn--ghost btn--full" id="plan-enterprise-btn" aria-label="Contact sales for Institutional plan">Contact Sales</button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer" role="contentinfo">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <a href="#" class="nav__logo footer__logo" aria-label="Nexus AI Home">
+          <span class="logo__icon"><i class="fa-solid fa-hexagon-nodes"></i></span>
+          <span class="logo__text">Nexus<span class="logo__accent">AI</span></span>
+        </a>
+        <p class="footer__tagline">Intelligence at the speed of markets.</p>
+        <div class="footer__social" aria-label="Social media links">
+          <a href="https://twitter.com" target="_blank" rel="noopener" class="social-link" aria-label="Follow us on Twitter/X" id="social-twitter">
+            <i class="fa-brands fa-x-twitter"></i>
+          </a>
+          <a href="https://discord.com" target="_blank" rel="noopener" class="social-link" aria-label="Join our Discord" id="social-discord">
+            <i class="fa-brands fa-discord"></i>
+          </a>
+          <a href="https://github.com" target="_blank" rel="noopener" class="social-link" aria-label="View our GitHub" id="social-github">
+            <i class="fa-brands fa-github"></i>
+          </a>
+          <a href="https://t.me" target="_blank" rel="noopener" class="social-link" aria-label="Follow us on Telegram" id="social-telegram">
+            <i class="fa-brands fa-telegram"></i>
+          </a>
+        </div>
+      </div>
+
+      <nav class="footer__links" aria-label="Footer navigation">
+        <div class="footer__col">
+          <h4 class="footer__col-title">Product</h4>
+          <ul>
+            <li><a href="#predictions" class="footer__link">Live Dashboard</a></li>
+            <li><a href="#portfolio" class="footer__link">Portfolio Tracker</a></li>
+            <li><a href="#how-it-works" class="footer__link">How it Works</a></li>
+            <li><a href="#pricing" class="footer__link">Pricing</a></li>
+            <li><a href="http://localhost:8000/docs" target="_blank" rel="noopener" class="footer__link">API Docs ↗</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4 class="footer__col-title">Company</h4>
+          <ul>
+            <li><a href="#how-it-works" class="footer__link">About Us</a></li>
+            <li><a href="#contact" class="footer__link" id="footer-contact-link">Contact Us</a></li>
+            <li><a href="https://github.com" target="_blank" rel="noopener" class="footer__link">GitHub ↗</a></li>
+            <li><a href="#pricing" class="footer__link">Careers</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4 class="footer__col-title">Legal</h4>
+          <ul>
+            <li><a href="#" class="footer__link" id="footer-privacy">Privacy Policy</a></li>
+            <li><a href="#" class="footer__link" id="footer-terms">Terms of Service</a></li>
+            <li><a href="#" class="footer__link" id="footer-cookies">Cookie Policy</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <div class="footer__bottom">
+      <div class="container footer__bottom-inner">
+        <p class="footer__copy">&copy; 2026 Nexus AI Technologies Inc. All rights reserved.</p>
+        <p class="footer__disclaimer">
+          <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+          Predictions are generated by AI models for <strong>educational purposes only</strong> and do not constitute financial advice. Always do your own research. Crypto investments carry significant risk.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast notification -->
+  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Back to top -->
+  <button class="back-to-top hidden" id="back-to-top" aria-label="Back to top">
+    <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+  </button>
+
+
+  <!-- ===================== CHART MODAL ===================== -->
+  <div class="modal-overlay hidden" id="coin-chart-modal" role="dialog" aria-modal="true" aria-labelledby="modal-coin-title">
+    <div class="modal">
+      <div class="modal__header">
+        <h3 id="modal-coin-title">Bitcoin — 7-Day Price History</h3>
+        <div class="modal__timeframe">
+          <button class="tf-btn tf-btn--active" data-days="7" id="tf-7">7D</button>
+          <button class="tf-btn" data-days="14" id="tf-14">14D</button>
+          <button class="tf-btn" data-days="30" id="tf-30">30D</button>
+        </div>
+        <button class="modal__close" id="chart-modal-close" aria-label="Close chart">✕</button>
+      </div>
+      <div class="modal__body">
+        <div class="modal__chart-wrap">
+          <canvas id="modal-chart" aria-label="Coin price history chart" role="img"></canvas>
+        </div>
+      </div>
+      <div class="modal__footer">
+        <div class="modal__stats">
+          <div class="modal__stat"><span>Current Price</span><strong id="modal-current-price">—</strong></div>
+          <div class="modal__stat"><span>7D High</span><strong id="modal-high">—</strong></div>
+          <div class="modal__stat"><span>7D Low</span><strong id="modal-low">—</strong></div>
+          <div class="modal__stat"><span>7D Change</span><strong id="modal-change">—</strong></div>
+        </div>
+        <span id="modal-data-source" style="font-size:0.72rem;opacity:0.5">Powered by CoinGecko</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== ALERT MODAL ===================== -->
+  <div class="modal-overlay hidden" id="alert-modal" role="dialog" aria-modal="true" aria-labelledby="alert-modal-title">
+    <div class="modal modal--sm">
+      <div class="modal__header">
+        <h3 id="alert-modal-title">Set Price Alert</h3>
+        <button class="modal__close" id="alert-modal-close" aria-label="Close alert modal">✕</button>
+      </div>
+      <div class="modal__body">
+        <div class="alert-form">
+          <div>
+            <label for="alert-direction">Alert when price goes</label>
+            <select id="alert-direction">
+              <option value="above">Above ↑</option>
+              <option value="below">Below ↓</option>
+            </select>
+          </div>
+          <div>
+            <label for="alert-target-price">Target Price (USD)</label>
+            <input id="alert-target-price" type="number" step="any" min="0" placeholder="e.g. 85000">
+          </div>
+        </div>
+      </div>
+      <div class="modal__actions">
+        <button class="btn btn--primary" id="alert-save-btn">
+          <i class="fa-solid fa-bell"></i> Set Alert
+        </button>
+        <button class="btn btn--ghost" id="alert-cancel-btn">Cancel</button>
+        <button class="btn btn--ghost" id="alert-clear-btn" style="margin-left:auto;color:var(--color-red-bright)">
+          <i class="fa-solid fa-trash-can"></i> Clear
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
